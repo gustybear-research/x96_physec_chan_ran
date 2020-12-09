@@ -5,7 +5,18 @@ close all
 %% **** load
 % fileB = './1LOS_15dB_500k/BER_CSI_B_20_09_10_16_16.csv';
 % fileB = './1LOS_30dB_500k/BER_CSI_B_20_09_10_16_09.csv';
-fileB = './1LOS_30dB_500k_Slow/BER_CSI_B_20_09_10_16_51.csv';
+%fileB = '../s03_2_4G_c/BER_CSI_B_20_09_10_16_51.csv';
+% fileB = '../s04_2_4G_c/BER_CSI_B_20_09_10_17_01.csv';
+% fileB = '../s05_2_4G_c/BER_CSI_B_20_09_10_16_56.csv';
+% fileB = '../s05_2_4G_b/BER_CSI_B_20_09_10_16_21.csv';
+% fileB = '../s05_2_4G_a/BER_CSI_B_20_09_10_16_24.csv';
+% fileB = '../s04_2_4G_c/BER_CSI_B_20_09_10_17_01.csv';
+% fileB = '../s04_2_4G_b/BER_CSI_B_20_09_10_16_36.csv';
+% fileB = '../s04_2_4G_a/BER_CSI_B_20_09_10_16_39.csv';
+% fileB = '../s03_2_4G_c/BER_CSI_B_20_09_10_16_51.csv';
+% fileB = '../s03_2_4G_b/BER_CSI_B_20_09_10_16_09.csv';
+fileB = '../s03_2_4G_a/BER_CSI_B_20_09_10_16_16.csv';
+
 % fileB = './1LOS_Reflector_15dB_500k/BER_CSI_B_20_09_10_16_39.csv';
 % fileB = './1LOS_Reflector_30dB_500k/BER_CSI_B_20_09_10_16_36.csv';
 % fileB = './1LOS_Reflector_30dB_500k_Slow/BER_CSI_B_20_09_10_17_01.csv';
@@ -14,7 +25,7 @@ fileB = './1LOS_30dB_500k_Slow/BER_CSI_B_20_09_10_16_51.csv';
 % fileB = './2LOS_30dB_500k_Slow/BER_CSI_B_20_09_10_16_56.csv';
 % name_ind = '_2LOS_30dB_500k_Slow';
 
-name_ind = '_1LOS_30dB_500k_Slow';
+name_ind = 's03a';
 
 B = readtable(fileB);
 
@@ -74,8 +85,8 @@ fig.Color = [245, 245, 245]/255;
 fig.InvertHardcopy = 'off';
 fig_pos = fig.PaperPosition;
 fig.PaperSize = [fig_pos(3) fig_pos(4)];
-name5 = ['./figures/CSI' name_ind '.eps'];
-print(fig,'-deps', name5)
+name5 = ['./figures/CSI' name_ind];
+saveas(fig,name5,'png')
 
 %% **** save
 dataname = ['./extractedData/data' name_ind '.mat'];

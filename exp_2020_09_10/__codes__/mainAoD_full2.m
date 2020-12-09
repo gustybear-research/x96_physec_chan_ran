@@ -3,9 +3,13 @@ clear
 close all
 
 %% **** data
+% scenarios = {'s03a' 's03b' 's03c' 's04a' 's04b' 's04c' 's05a' 's05b' 's05c'}; 
+scenarios = {'s04b'}
+for nameindex = 1:length(scenarios)
+close all
 name_f = '2_4G';
-name_ind = '_1LOS_30dB_500k_Slow';
-
+name_ind = scenarios{nameindex};
+name_ind
 name1 = ['./extractedData/data' name_ind '.mat'];
 load(name1)
 
@@ -26,7 +30,7 @@ Bcsi(ind,:) = [];
 D = 361;
 numSamples = 40;
 alpha0 = 0.7;
-alpha = 0.6;
+alpha = 0.5;
 
 % seed = rng;
 % seed = rng('default');
@@ -54,8 +58,8 @@ fig.Color = [245, 245, 245]/255;
 fig.InvertHardcopy = 'off';
 fig_pos = fig.PaperPosition;
 fig.PaperSize = [fig_pos(3) fig_pos(4)];
-name4 = ['./figures/pattern' name_f '.eps'];
-print(fig,'-deps', name4)
+name4 = ['./figures/pattern' name_f];
+saveas(fig, name4, 'png')
 
 %% AoD ground truth
 arrayResponseSet = arrayResponseAll;
@@ -137,10 +141,16 @@ fig.PaperPositionMode = 'auto';
 fig.InvertHardcopy = 'off';
 fig_pos = fig.PaperPosition;
 fig.PaperSize = [fig_pos(3) fig_pos(4)];
-name5 = ['./figures/AoD_' name_f name_ind '.eps'];
-print(fig,'-deps', name5)
+%name5 = ['./figures/AoD_' name_f name_ind '.png'];
+%print(fig,'-deps', name5)
+name5 = ['./figures/AoD_' name_f name_ind];
+saveas(fig, name5, 'png')
 
 figure
+[aB, key] = sort(aB);
+Bcsi = Bcsi(key);
+testarray = abs(arrayResponseAll.'*a);
+% corrcoef(abs(Bcsi(:,end)),abs(arrayResponseAll.'*a))
 plot(aB,abs(Bcsi(:,end)),'k','LineWidth',1.2)
 hold on
 plot((0:1:360)',abs(arrayResponseAll.'*a),'k--','LineWidth',1.2) % predicted CSI
@@ -155,10 +165,14 @@ fig.Color = [245, 245, 245]/255;
 fig.InvertHardcopy = 'off';
 fig_pos = fig.PaperPosition;
 fig.PaperSize = [fig_pos(3) fig_pos(4)];
-name5 = ['./figures/pred_' name_f name_ind '.eps'];
-print(fig,'-deps', name5)
+% name5 = ['./figures/pred_' name_f name_ind '.png'];
+% print(fig,'-deps', name5)
+name5 = ['./figures/pred_' name_f name_ind];
+saveas(fig, name5, 'png')
 
 figure
+[aB, key] = sort(aB);
+Bcsi = Bcsi(key);
 plot(aB,abs(Bcsi(:,end))/max(abs(Bcsi(:,end))),'k','LineWidth',1.2)
 hold on
 plot((0:1:360)',abs(arrayResponseAll.'*a)/max(abs(arrayResponseAll.'*a)),'k--','LineWidth',1.2) % predicted CSI
@@ -175,6 +189,7 @@ fig.InvertHardcopy = 'off';
 fig_pos = fig.PaperPosition;
 fig.PaperSize = [fig_pos(3) fig_pos(4)];
 
+end
 % figure
 % plot((0:1:360)',angle(BBcsi))
 % hold on
